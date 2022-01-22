@@ -4,10 +4,8 @@ import { useFormik } from "formik"
 import * as Yup from "yup"
 import { toast } from "react-toastify"
 import { useNavigate, Link } from "react-router-dom"
-import { useStore } from "../store"
 
-const LoginForm = () => {
-  const [user, isUserLogin] = useStore()
+const LoginForm = ({ isUserLogin, setIsUserLogin }) => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
@@ -23,7 +21,7 @@ const LoginForm = () => {
 
   const onSubmit = () => {
     navigate("/home")
-    isUserLogin = true
+    setIsUserLogin(true)
   }
 
   const formik = useFormik({
@@ -35,7 +33,7 @@ const LoginForm = () => {
     if (isUserLogin) {
       navigate("/home")
     }
-  }, [])
+  }, [10])
 
   return (
     <Card className="m-auto">
