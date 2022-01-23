@@ -45,7 +45,7 @@ const MovieDetails = () => {
                 <li>IMDB Vote: {movie.vote_average}</li>
                 <li>Budget: {movie.budget}</li>
                 <li>Time: {movie.runtime} Minute</li>
-                <li>Popularity: {movie.popularity} Minute</li>
+                <li>Popularity: {movie.popularity}</li>
                 <li>Release Date: {movie.release_date}</li>
               </ul>
             </div>
