@@ -1,26 +1,30 @@
 import React from "react"
 import { Route, Routes } from "react-router-dom"
 import LoginForm from "../components/LoginForm"
-import HomePage from "../pages/HomePage"
+import MovieDetails from "../components/MovieDetails"
+import Search from "../components/Search"
+import PrivateRoute from "./PrivateRoute"
 
-const CustomRoutes = ({ isUserLogin, setIsUserLogin }) => {
+const CustomRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/home"
+        path="/movie/:movieId"
         element={
-          <HomePage isUserLogin={isUserLogin} setIsUserLogin={setIsUserLogin} />
+          <PrivateRoute>
+            <MovieDetails />
+          </PrivateRoute>
         }
       />
       <Route
-        path="/"
+        path="/home"
         element={
-          <LoginForm
-            isUserLogin={isUserLogin}
-            setIsUserLogin={setIsUserLogin}
-          />
+          <PrivateRoute>
+            <Search />
+          </PrivateRoute>
         }
       />
+      <Route path="/" element={<LoginForm />} />
     </Routes>
   )
 }

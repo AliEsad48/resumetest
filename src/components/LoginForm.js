@@ -1,27 +1,31 @@
-import React, { useEffect, useState } from "react"
-import { Form, Button, Card, Spinner } from "react-bootstrap"
+import { Form, Button, Card } from "react-bootstrap"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { toast } from "react-toastify"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { login, requestToken } from "../api/login_service"
 
-const LoginForm = ({ isUserLogin, setIsUserLogin }) => {
+const LoginForm = () => {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
-
   const initialValues = {
-    email: "",
+    username: "",
     password: "",
   }
 
   const validationSchema = Yup.object({
-    email: Yup.string().email().required("Please enter your email"),
+    username: Yup.string().required("Please enter your user name"),
     password: Yup.string().required("Please enter your password").min(6),
   })
 
-  const onSubmit = () => {
-    navigate("/home")
-    setIsUserLogin(true)
+  const onSubmit = (values) => {
+    requestToken().then((resp) => {
+      values["request_token"] = `${resp.data.request_token}`
+      console.log(values)
+      login(values).then((response) => {
+        localStorage.setItem("token", resp.data.request_token)
+        console.log("login başladı")
+        navigate("/home")
+      })
+    })
   }
 
   const formik = useFormik({
@@ -29,25 +33,21 @@ const LoginForm = ({ isUserLogin, setIsUserLogin }) => {
     validationSchema,
     onSubmit,
   })
-  useEffect(() => {
-    if (isUserLogin) {
-      navigate("/home")
-    }
-  }, [10])
 
   return (
     <Card className="m-auto">
       <Card.Body>
         <Form noValidate onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>Username</Form.Label>
             <Form.Control
-              type="email"
-              {...formik.getFieldProps("email")}
-              isInvalid={!!formik.errors.email}
+              type="text"
+              {...formik.getFieldProps("username")}
+              isInvalid={!!formik.errors.username}
+              autoFocus="autofocus"
             />
             <Form.Control.Feedback type="invalid">
-              {formik.errors.email}
+              {formik.errors.username}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -70,8 +70,8 @@ const LoginForm = ({ isUserLogin, setIsUserLogin }) => {
               alignItems: "center",
             }}
           >
-            <Button variant="primary" type="submit" disabled={loading}>
-              {loading && <Spinner animation="border" size="sm" />} Login
+            <Button variant="primary" type="submit">
+              Login
             </Button>
           </div>
         </Form>
