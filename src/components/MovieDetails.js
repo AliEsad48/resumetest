@@ -25,7 +25,8 @@ const MovieDetails = () => {
   return (
     <div>
       <Button className="mb-3" onClick={returnBack}>
-        <IoMdReturnLeft /> Return Back
+        <IoMdReturnLeft />
+        Return Back
       </Button>
       <Container>
         <Row>
@@ -38,8 +39,8 @@ const MovieDetails = () => {
           <Col className="col-details" lg={5}>
             <div className="details">
               <ul>
-                <li className="title">
-                  <h3>{movie.title}</h3>{" "}
+                <li>
+                  <h3>{movie.title}</h3>
                 </li>
                 <li>{movie.overview}</li>
                 <li>IMDB Vote: {movie.vote_average}</li>

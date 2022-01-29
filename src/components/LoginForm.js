@@ -1,8 +1,9 @@
-import { Form, Button, Card } from "react-bootstrap"
+import { Form, Button, Row, Container, Col } from "react-bootstrap"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { useNavigate } from "react-router-dom"
 import { login, requestToken } from "../api/login_service"
+import { toast } from "react-toastify"
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -35,48 +36,42 @@ const LoginForm = () => {
   })
 
   return (
-    <Card className="m-auto">
-      <Card.Body>
-        <Form noValidate onSubmit={formik.handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              {...formik.getFieldProps("username")}
-              isInvalid={!!formik.errors.username}
-              autoFocus="autofocus"
-            />
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.username}
-            </Form.Control.Feedback>
-          </Form.Group>
+    <Container className="mt-5">
+      <Row style={{ justifyContent: "center" }}>
+        <Col md="4" className="bg-warning" style={{ borderRadius: "5px" }}>
+          <Form noValidate onSubmit={formik.handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                {...formik.getFieldProps("username")}
+                isInvalid={!!formik.errors.username}
+                autoFocus="autofocus"
+              />
+              <Form.Control.Feedback type="invalid">
+                {formik.errors.username}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              {...formik.getFieldProps("password")}
-              isInvalid={!!formik.errors.password}
-            />
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.password}
-            </Form.Control.Feedback>
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                {...formik.getFieldProps("password")}
+                isInvalid={!!formik.errors.password}
+              />
+              <Form.Control.Feedback type="invalid">
+                {formik.errors.password}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Button variant="primary" type="submit">
+            <Button className="mb-3" variant="danger" type="submit">
               Login
             </Button>
-          </div>
-        </Form>
-      </Card.Body>
-    </Card>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

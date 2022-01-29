@@ -53,7 +53,7 @@ const Search = () => {
             onChange={handleOnChange}
           />
           <Button type="submit">
-            <AiOutlineSearch />{" "}
+            <AiOutlineSearch />
           </Button>
         </form>
       </div>
