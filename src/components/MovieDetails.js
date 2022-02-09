@@ -30,14 +30,16 @@ const MovieDetails = () => {
       </Button>
       <Container>
         <Row>
-          <Col className="col-img" lg={7}>
-            <div className="div-img">
-              <img src={IMG_API + movie.poster_path} alt={movie.title} />
-            </div>
+          <Col lg={7}>
+            <img
+              src={IMG_API + movie.poster_path}
+              alt={movie.title}
+              style={{ height: "32rem" }}
+            />
           </Col>
 
-          <Col className="col-details" lg={5}>
-            <div className="details">
+          <Col lg={5}>
+            <div>
               <ul>
                 <li>
                   <h3>{movie.title}</h3>

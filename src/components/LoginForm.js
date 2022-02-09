@@ -8,8 +8,8 @@ import { toast } from "react-toastify"
 const LoginForm = () => {
   const navigate = useNavigate()
   const initialValues = {
-    username: "",
-    password: "",
+    username: "salihbayram",
+    password: "Esen6463.",
   }
 
   const validationSchema = Yup.object({
